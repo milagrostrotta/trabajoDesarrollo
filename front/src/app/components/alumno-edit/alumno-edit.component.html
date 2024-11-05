@@ -1,0 +1,12 @@
+<div class="alumno-create-container">
+    <h2>Editar Alumno</h2>
+    <form (ngSubmit)="guardarCambios()">
+      <label for="nombre">Nombre</label>
+      <input id="nombre" [(ngModel)]="alumno.nombre" name="nombre" required>
+  
+      <label for="fechaNacimiento">Fecha de Nacimiento</label>
+      <input id="fechaNacimiento" type="date" [(ngModel)]="alumno.fechaNacimiento" name="fechaNacimiento" required>
+  
+      <button type>="submit">Crear</button>
+    </form>
+  </div>

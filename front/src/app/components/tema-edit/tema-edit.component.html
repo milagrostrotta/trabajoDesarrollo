@@ -1,0 +1,12 @@
+<div class="tema-create-container">
+    <h2>Editar tema</h2>
+    <form (ngSubmit)="guardarCambios()">
+      <label for="nombre">Nombre del tema</label>
+      <input id="nombre" [(ngModel)]="tema.nombre" name="nombre" required>
+  
+      <label for="descripcion">Descripción</label>
+      <input id="descripcion" type="text" [(ngModel)]="tema.descripcion" name="descripcion" required>
+  
+      <button type>="submit">Guardar</button>
+    </form>
+  </div>

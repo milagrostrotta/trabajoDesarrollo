@@ -1,0 +1,25 @@
+<div class="list row">
+  <div class="col-md-12">
+    <h4>Listado de Alumnos</h4>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Fecha de Nacimiento</th>
+          <th>Acciones</th> <!-- Nueva columna para acciones -->
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let alumno of alumnos">
+          <td>{{ alumno.nombre }}</td>
+          <td>{{ alumno.fechaNacimiento }}</td>
+          <td>
+            <button [routerLink]="['/alumno-edit', alumno.id]">Editar</button>
+            <button (click)="eliminarAlumno(alumno.id)">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<button class="boton"[routerLink]="['/alumno-create']"> crear alumno</button>

@@ -1,0 +1,131 @@
+<div class="curso-create-form">
+  <h2>{{ editing ? 'Editar Curso' : 'Crear Curso' }}</h2>
+  <form #cursoForm="ngForm" (ngSubmit)="onSubmit(cursoForm)">
+    
+    <!-- Fecha de Inicio -->
+    <div class="form-group">
+      <label for="fecha_inicio">Fecha de Inicio</label>
+      <input 
+        type="date" 
+        id="fecha_inicio" 
+        name="fecha_inicio" 
+        class="form-control"
+        [(ngModel)]="curso.fecha_inicio" 
+        
+        required 
+        #fechaInicio="ngModel"
+      />
+      <div *ngIf="fechaInicio.invalid && fechaInicio.touched" class="text-danger">
+        La fecha de inicio es obligatoria.
+      </div>
+    </div>
+
+    <!-- Fecha de Fin -->
+    <div class="form-group">
+      <label for="fechaFin">Fecha de Fin</label>
+      <input 
+        type="date" 
+        id="fechaFin" 
+        name="fechaFin" 
+        class="form-control"
+        [(ngModel)]="curso.fechaFin" 
+        required 
+        #fechaFin="ngModel"
+      />
+      <div *ngIf="fechaFin.invalid && fechaFin.touched" class="text-danger">
+        La fecha de fin es obligatoria.
+      </div>
+      <div *ngIf="curso.fecha_inicio && curso.fechaFin && curso.fechaFin <= curso.fecha_inicio" class="text-danger">
+        La fecha de fin debe ser posterior a la fecha de inicio.
+      </div>
+    </div>
+
+    <!-- Precio -->
+    <div class="form-group">
+      <label for="precio">Precio</label>
+      <input 
+        type="number" 
+        id="precio" 
+        name="precio" 
+        class="form-control"
+        [(ngModel)]="curso.precio" 
+        required 
+        min="1" 
+        #precio="ngModel"
+      />
+      <div *ngIf="precio.invalid && precio.touched" class="text-danger">
+        El precio debe ser mayor que cero.
+      </div>
+    </div>
+
+    <!-- Tema -->
+    <div class="form-group">
+      <label for="tema">Tema</label>
+      <select 
+        id="tema" 
+        name="tema" 
+        class="form-control" 
+        [(ngModel)]="curso.tema" 
+        required 
+        #tema="ngModel"
+      >
+          <option value="" disabled>Seleccione un tema</option>
+          <option *ngFor="let tema of temas" [ngValue]="tema">{{ tema.nombre }}</option>
+      </select>
+      <div *ngIf="tema.invalid || !curso.tema.id" class="text-danger">
+        Seleccione un tema.
+      </div>
+    </div>
+
+    <!-- Docente -->
+    <div class="form-group">
+      <label for="docente">Docente</label>
+      <select 
+        id="docente" 
+        name="docente" 
+        class="form-control"
+        [(ngModel)]="curso.docente" 
+        required 
+        #docente="ngModel"
+      >
+          <option value="" disabled>Seleccione un docente</option>
+          <option *ngFor="let docente of docentes" [ngValue]="docente">{{ docente.nombre }}</option>
+      </select>
+      <div *ngIf="docente.invalid || !curso.docente.id" class="text-danger">
+        Seleccione un docente.
+      </div>
+    </div>
+
+    <!-- Alumnos -->
+    <div class="form-group">
+      <label>Alumnos</label>
+      <div *ngFor="let alumno of alumnos">
+        <input 
+          type="checkbox" 
+          [value]="alumno" 
+          (change)="onAlumnoSelectionChange($event, alumno)"
+          [checked]="alumno.selected" 
+        /> 
+        {{ alumno.nombre }}
+      </div>
+    </div>
+
+    <!-- Botones de acción -->
+    <div class="button-container">
+      <button 
+        type="button" 
+        class="btn btn-warning float-left" 
+        (click)="cancelar()"
+      >
+        Cancelar
+      </button>
+      <button 
+      type="submit" 
+      class="btn btn-primary float-right" 
+      [disabled]="cursoForm.invalid || (curso.fechaFin && curso.fechaFin <= curso.fecha_inicio) || !curso.tema.id || !curso.docente.id"
+    >
+        {{ editing ? 'Actualizar Curso' : 'Crear Curso' }}
+      </button>
+    </div>
+  </form>
+</div>

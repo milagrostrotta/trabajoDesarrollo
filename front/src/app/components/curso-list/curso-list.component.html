@@ -1,0 +1,42 @@
+<div *ngIf="cursos.length > 0"> 
+<div class="list row">
+  <div class="col-md-12">
+    <br>
+    <h4>Listado de Cursos</h4>
+    
+    <button [routerLink]="['/cursos/curso-create']" class="btn btn-warning btn-sm">Crear curso</button>
+    <app-cursos-filtro (fechaSeleccionada)="filtrarCursos($event)"></app-cursos-filtro>
+    <table class="table cursos">
+      <thead>
+        <tr>
+          <th>Tema del Curso</th>
+          <th>Alumnos</th>
+          <th>Docente</th>
+          <th>Fecha de Finalización</th> <!-- Nueva columna para la fecha de finalización -->
+          <th>Acciones</th> <!-- Nueva columna para acciones -->
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let curso of cursos">
+          <td>{{ curso.tema.nombre }}</td>
+          <td>
+            <ul>
+              <li *ngFor="let alumno of curso.alumnos">{{ alumno.nombre }}</li>
+            </ul>
+          </td>
+          <td>{{ curso.docente.nombre }}</td>
+          <td>{{ curso.fechaFin | date }} </td> 
+          <td>
+
+            <button [routerLink]="['/cursos/curso-edit', curso.id]" class="btn btn-warning btn-sm">Editar</button>
+            <button (click)="eliminarCurso(curso.id)" class="btn btn-danger btn-sm">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</div>
+<div *ngIf="cursos.length === 0">
+  <h5>No hay cursos que finalicen dicha fecha.Intente con otra</h5>
+</div>

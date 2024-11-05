@@ -1,0 +1,24 @@
+<div class="list row">
+  <div class="col-md-12">
+    <table class="table docentes">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Legajo</th>
+          <th>Acciones</th> 
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let docente of docentes">
+          <td>{{ docente.nombre }}</td>
+          <td>{{ docente.legajo }}</td>
+          <td>
+            <a [routerLink]="['/docentes/docente-edit', docente.id]" class="btn btn-warning btn-sm">Editar</a>
+            <button (click)="eliminarDocente(docente.id)" class="btn btn-danger btn-sm">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>      
+<button [routerLink]="['/docentes/docente-create']" class="btn btn-warning btn-sm">Crear docente</button>

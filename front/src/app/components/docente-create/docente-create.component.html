@@ -1,0 +1,12 @@
+<div class="docente-create-container">
+    <h2>Crear docente</h2>
+    <form (ngSubmit)="crearDocente()">
+      <label for="nombre">Nombre</label>
+      <input id="nombre" [(ngModel)]="docente.nombre" name="nombre" required>
+  
+      <label for="legajo">Legajo</label>
+      <input id="legajo" type="number" [(ngModel)]="docente.legajo" name="legajo" required>
+  
+      <button type>="submit">Crear</button>
+    </form>
+  </div>
