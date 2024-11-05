@@ -3,41 +3,41 @@ import { Alumno } from '../../models/alumno.model';
 import { AlumnoService } from '../../services/alumno.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-alumno-edit',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule,CommonModule],
   templateUrl: './alumno-edit.component.html',
   styleUrl: './alumno-edit.component.css'
 })
 
   export class AlumnoEditComponent implements OnInit {
-    alumno: Alumno; // Cambia 'Alumno' por el tipo real de 'alumno'
+    alumno: Alumno = new Alumno(); 
     id: number | undefined;
-  
+
     constructor(
       private alumnoService: AlumnoService,
       private route: ActivatedRoute,
       private router: Router
     ) {
-      this.alumno = {id:0,nombre: '', fechaNacimiento: new Date() }; // Inicializa el alumno
     }
   
     ngOnInit(): void {
-      this.id = +this.route.snapshot.paramMap.get('id')!; // Obtén el ID de los parámetros de la ruta
+      this.id = +this.route.snapshot.paramMap.get('id')!; 
       this.obtenerAlumno(this.id);
       
     }
   
     obtenerAlumno(id: number): void {
       this.alumnoService.obtenerAlumnoPorId(id).subscribe((data: Alumno) => {
-        this.alumno = data; // Asigna los datos del alumno a la variable
+        this.alumno = data; 
       });
     }
   
     guardarCambios(): void {
       this.alumnoService.actualizarAlumno(this.alumno).subscribe(() => {
-        this.router.navigate(['/alumnos']); // Redirige a la lista de alumnos después de guardar
+        this.router.navigate(['/alumnos']);
       });
     }
   }

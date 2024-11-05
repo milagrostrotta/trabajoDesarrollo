@@ -24,7 +24,7 @@ export class CursoCreateComponent implements OnInit {
   docentes: Docente[] = [];
   alumnos: Alumno[] = [];
   editing: boolean = false; // Variable para determinar si estamos en modo edición
-
+  
   constructor(
     private cursoService: CursoService,
     private docenteService: DocenteService,
@@ -33,17 +33,16 @@ export class CursoCreateComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute
   ) {
-
+    this.curso.tema = new Tema(); 
+    this.curso.docente = new Docente(); 
   }
 ngOnInit(): void {
   this.cargarAlumnos();
   this.cargarDocentes();
   this.cargarTemas();
-
   const id = this.route.snapshot.paramMap.get('id');
   if (id) {
     this.editing = true;
-
     this.cursoService.obtenerCursoPorId(Number(id)).subscribe((curso) => {
       this.curso.tema = this.temas.find(tema => tema.id === curso.tema.id)!;
       this.curso.docente = this.docentes.find(docente => docente.legajo === curso.docente.legajo)!;
@@ -52,7 +51,7 @@ ngOnInit(): void {
       this.curso.precio = curso.precio;
       this.curso.id = curso.id;
       this.curso.alumnos=curso.alumnos;
-
+      
     
     });
   }
@@ -60,7 +59,7 @@ ngOnInit(): void {
 
   crearCurso(): void {
     if (this.curso.docente?.id === 0 || this.curso.tema.id===0) {
-      console.error('Debe seleccionar un docente válido');
+    
       return;
   }
    
@@ -121,24 +120,7 @@ ngOnInit(): void {
       alert("Por favor, complete todos los campos obligatorios correctamente.");
       return;
     }
-  
-    if (this.curso.fechaFin <= this.curso.fecha_inicio) {
-      alert("La fecha de fin debe ser posterior a la fecha de inicio.");
-      return;
-    }
-  
-    if (this.curso.precio <= 0) {
-      alert("El precio del curso debe ser mayor que cero.");
-      return;
-    }
-  
-   
-    if (this.curso.docente?.id === 0 || this.curso.tema.id===0) {
-            alert("El tema y el docente deben ser diferentes.");
-      return;
-    }
-  
-    console.log("Formulario enviado exitosamente", this.curso);
+
     alert("Curso creado/actualizado con éxito.");
 
     if (this.editing){

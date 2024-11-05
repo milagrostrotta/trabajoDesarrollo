@@ -1,12 +1,51 @@
+
 <div class="alumno-create-container">
-    <h2>Editar Alumno</h2>
-    <form (ngSubmit)="guardarCambios()">
-      <label for="nombre">Nombre</label>
-      <input id="nombre" [(ngModel)]="alumno.nombre" name="nombre" required>
-  
-      <label for="fechaNacimiento">Fecha de Nacimiento</label>
-      <input id="fechaNacimiento" type="date" [(ngModel)]="alumno.fechaNacimiento" name="fechaNacimiento" required>
-  
-      <button type>="submit">Crear</button>
-    </form>
-  </div>
+  <h2>Editar alumno</h2>
+  <form #alumnoForm="ngForm" (ngSubmit)="alumnoForm.valid && guardarCambios()">
+      
+      <!-- Nombre -->
+      <div class="form-group">
+          <label for="nombre">Nombre</label>
+          <input 
+              id="nombre" 
+              [(ngModel)]="alumno.nombre" 
+              name="nombre" 
+              required 
+              class="form-control"
+              #nombre="ngModel"
+              [ngClass]="{'is-invalid': alumnoForm.submitted && nombre.invalid}" 
+          />
+          <div *ngIf="alumnoForm.submitted && nombre.invalid" class="invalid-feedback">
+              El nombre es obligatorio.
+          </div>
+      </div>
+      
+      <!-- Fecha de Nacimiento -->
+      <div class="form-group">
+          <label for="fechaNacimiento">Fecha de Nacimiento</label>
+          <input 
+              id="fechaNacimiento" 
+              type="date" 
+              [(ngModel)]="alumno.fechaNacimiento" 
+              name="fechaNacimiento" 
+              required 
+              class="form-control"
+              #fechaNacimiento="ngModel"
+              [ngClass]="{'is-invalid': alumnoForm.submitted && fechaNacimiento.invalid}" 
+          />
+          <div *ngIf="alumnoForm.submitted && fechaNacimiento.invalid" class="invalid-feedback">
+              La fecha de nacimiento es obligatoria.
+          </div>
+      </div>
+
+      <!-- Mensaje de error general -->
+      <div *ngIf="alumnoForm.submitted && !alumnoForm.valid" class="invalid-feedback">
+          Todos los campos son obligatorios.
+      </div>
+
+      <!-- Botón de acción -->
+      <div class="button-container">
+          <button type="submit" class="btn btn-primary float-right">Guardar</button>
+      </div>
+  </form>
+</div>

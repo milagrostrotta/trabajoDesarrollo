@@ -16,7 +16,7 @@ export class AlumnoCreateComponent {
   alumno: Alumno = new Alumno();
   
   constructor(private alumnoService: AlumnoService, private router: Router) {
-    
+
   }
 
   createAlumno(): void {

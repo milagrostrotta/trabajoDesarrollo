@@ -30,7 +30,6 @@ export class TemaListComponent {
   eliminarTema(id: number): void {
     if (confirm('¿Estás seguro de que deseas eliminar este tema?')) {
       this.temaService.eliminarTema(id).subscribe(() => {
-        // Actualizamos la lista localmente al eliminar el alumno
         this.temas = this.temas.filter(doc => doc.id !== id);
         this.router.navigate(['/temas']);
         

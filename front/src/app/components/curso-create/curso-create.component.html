@@ -109,6 +109,15 @@
         {{ alumno.nombre }}
       </div>
     </div>
+    <!-- Listado de Alumnos del Curso -->
+<div *ngIf=editing class="form-group">
+  <label>Alumnos Asociados al Curso</label>
+  <ul>
+    <li *ngFor="let alumno of curso.alumnos">
+      {{ alumno.nombre }} (ID: {{ alumno.id }})
+    </li>
+  </ul>
+</div>
 
     <!-- Botones de acción -->
     <div class="button-container">

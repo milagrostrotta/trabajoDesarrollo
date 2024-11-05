@@ -1,5 +1,4 @@
 <div class="col-md-12">
-  <h4>Alumnos de cursos vigentes </h4>
   <p>Seleccione el docente del cual desea ver los alumnos de sus cursos vigentes</p>
   <div class="btn-group mb-3" role="group" aria-label="Legajos de Docentes">
     <button
@@ -11,12 +10,20 @@
     </button>
   </div>
 
-  <div *ngIf="selectedLegajo > 0"> 
-    <h5>Alumnos:</h5>
-    <ul *ngIf="alumnos.length > 0">
-      <li *ngFor="let alumno of alumnos">
-        {{ alumno.nombre }} 
-      </li>
-    </ul>
-    <h5 *ngIf="alumnos.length === 0">No hay alumnos disponibles.</h5>
+  <div *ngIf="selectedLegajo > 0">
+   
+    <table class="table" *ngIf="alumnos.length > 0">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let alumno of alumnos">
+          <td>{{ alumno.nombre }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <h6 *ngIf="alumnos.length === 0">No hay alumnos disponibles.</h6>
   </div>
+</div>
